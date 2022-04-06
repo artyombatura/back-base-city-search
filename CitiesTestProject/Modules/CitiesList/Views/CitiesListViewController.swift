@@ -9,6 +9,10 @@ import Foundation
 import UIKit
 import Combine
 
+protocol CitiesListTableDelegate: AnyObject {
+	func didSelectCity(city: City)
+}
+
 /// Represents view
 class CitiesListViewController: UIViewController {
 	let viewModel: CitiesListViewModel
@@ -27,6 +31,14 @@ class CitiesListViewController: UIViewController {
 		label.isHidden = true
 		label.translatesAutoresizingMaskIntoConstraints = false
 		return label
+	}()
+	
+	private lazy var tableView: UITableView = {
+		let table = UITableView(delegate: viewModel.tableDelegate,
+						   dataSource: viewModel.tableDataSource)
+		table.translatesAutoresizingMaskIntoConstraints = false
+		table.isHidden = true
+		return table
 	}()
 	
 	private var cancellable = Set<AnyCancellable>()
@@ -48,12 +60,12 @@ class CitiesListViewController: UIViewController {
 	}
 	
 	private func setupView() {
-		self.view.backgroundColor = .white
-		
 		self.title = "Cities"
+		self.view.backgroundColor = .white
 		
 		self.view.addSubview(loadingView)
 		self.view.addSubview(emptyLabelView)
+		self.view.addSubview(tableView)
 		
 		makeConstraints()
 	}
@@ -67,6 +79,11 @@ class CitiesListViewController: UIViewController {
 			emptyLabelView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
 			emptyLabelView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
 			emptyLabelView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+			
+			tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+			tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+			tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+			tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
 		])
 	}
 	
@@ -81,19 +98,21 @@ class CitiesListViewController: UIViewController {
 	private func handleNewState(_ state: CitiesListViewModel.DisplayState) {
 		switch state {
 		case .loading:
-			self.loadingView.isHidden = false
-			self.emptyLabelView.isHidden = true
-		case .empty:
-			self.loadingView.isHidden = true
-			self.emptyLabelView.isHidden = false
-		case let .cities(numOfCities):
-			self.loadingView.isHidden = true
-			self.emptyLabelView.isHidden = false
+			self.show(loadingView)
 			
-			self.emptyLabelView.text = "Fetched \(numOfCities) cities entities"
+		case .empty:
+			self.show(emptyLabelView)
+			
+		case .result:
+			self.show(tableView)
+			tableView.reloadData()
 		}
 	}
 	
+	private func show(_ view: UIView) {
+		self.view.subviews.forEach {
+			$0.isHidden = (view != $0)
+		}
+	}
 }
-
 

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 /// Extension to provide reactive data fetching from Bundle with use of Combine
 extension Bundle {

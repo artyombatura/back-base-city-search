@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 protocol ICitiesListCoordinator {
-	func startDetailsFlow()
+	func startDetailsFlow(with city: City)
 }
 
 class CitiesListCoordinator: NavigationCoordinator, Presentable, ICitiesListCoordinator {
@@ -25,7 +25,7 @@ class CitiesListCoordinator: NavigationCoordinator, Presentable, ICitiesListCoor
 		push(citiesListView, animated: true, completion: nil)
 	}
 	
-	func startDetailsFlow() {
-		push(UIViewController(), animated: true, completion: nil)
+	func startDetailsFlow(with city: City) {
+		print("Start details flow for: \(city.name), \(city.country)")
 	}
 }

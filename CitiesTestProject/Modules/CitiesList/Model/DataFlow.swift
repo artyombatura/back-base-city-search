@@ -13,7 +13,7 @@ enum Cities {
 		case loading
 		case empty
 		/// Temporary set to array of strings -> refactor to actual models
-		case cities(Int)
+		case result
 	}
 
 }

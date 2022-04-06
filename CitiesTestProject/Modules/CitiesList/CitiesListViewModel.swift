@@ -14,28 +14,41 @@ final class CitiesListViewModel: ObservableObject {
 	var coordinator: ICitiesListCoordinator
 	var fetcherService: ICitiesService
 	
+	let tableDelegate = CitiesTableViewDelegate()
+	let tableDataSource = CititesTableViewDataSource()
+	
 	private var cancellable = Set<AnyCancellable>()
 	
 	// MARK: - Input
+	@Published var filterQuery: String = ""
 	
 	// MARK: - Output
 	@Published var state: Cities.State = .loading
+	
+	// MARK: - For inner purposes
+	@Published var cities: [City] = []
 	
 	init(coordinator: ICitiesListCoordinator,
 		 fetcherService: ICitiesService) {
 		self.coordinator = coordinator
 		self.fetcherService = fetcherService
 		
+		self.tableDelegate.delegate = self
+		
 		fetcherService
 			.fetchCities()
 			.receive(on: DispatchQueue.main)
-			.map({ cities -> Cities.State in
-				if cities.count == 0 {
-					return .empty
-				} else {
-					return .cities(cities.count)
-				}
+			.assign(to: &$cities)
+		
+		$cities.combineLatest($filterQuery)
+			.subscribe(on: DispatchQueue.global())
+			.map({ cities, query -> DisplayState in
+				self.tableDelegate.source = cities
+				self.tableDataSource.source = cities
+				
+				return .result
 			})
+			.receive(on: DispatchQueue.main)
 			.assign(to: &$state)
 	}
 	
@@ -43,4 +56,11 @@ final class CitiesListViewModel: ObservableObject {
 	// MARK: - Public
 	
 	// MARK: - Private
+}
+
+extension CitiesListViewModel: CitiesListTableDelegate {
+	func didSelectCity(city: City) {
+		// MARK: - Refactor! It's just a stub
+		coordinator.startDetailsFlow(with: city)
+	}
 }
