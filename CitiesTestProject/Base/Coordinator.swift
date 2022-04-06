@@ -86,11 +86,12 @@ class AppCoordinator: NavigationCoordinator {
 	init(window: UIWindow?) {
 		self.window = window
 		super.init(root: baseNavigationController)
+
 	}
 	
 	// MARK: - Overrides
 	override func start(animated _: Bool) {
-		let citiesFlow = CitiesListCoordinator(root: baseNavigationController)
+		let citiesFlow = CitiesListCoordinator(coordinator: self)
 		citiesFlow.start(animated: true)
 		
 		window?.rootViewController = baseNavigationController

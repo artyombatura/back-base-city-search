@@ -18,8 +18,10 @@ class CitiesListCoordinator: NavigationCoordinator, Presentable, ICitiesListCoor
 	}
 	
 	override func start(animated _: Bool) {
-		let baseController = CitiesListViewController(coordinator: self)
-		push(baseController, animated: true, completion: nil)
+		let citiesListViewModel = CitiesListViewModel(coordinator: self)
+		let citiesListView = CitiesListViewController(viewModel: citiesListViewModel)
+		
+		push(citiesListView, animated: true, completion: nil)
 	}
 	
 	func startDetailsFlow() {
