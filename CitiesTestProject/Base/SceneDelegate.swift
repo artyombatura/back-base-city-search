@@ -18,7 +18,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		
 		let window = UIWindow(windowScene: windowScene)
 		self.window = window
-		appCoordinator = AppCoordinator(window: window)
+		
+		let context = CoordinatorContext()
+		
+		appCoordinator = AppCoordinator(context: context, window: window)
 		appCoordinator?.start(animated: true)
 	}
 

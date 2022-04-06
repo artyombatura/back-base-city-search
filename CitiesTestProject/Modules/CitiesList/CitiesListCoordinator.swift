@@ -18,7 +18,8 @@ class CitiesListCoordinator: NavigationCoordinator, Presentable, ICitiesListCoor
 	}
 	
 	override func start(animated _: Bool) {
-		let citiesListViewModel = CitiesListViewModel(coordinator: self)
+		let citiesListViewModel = CitiesListViewModel(coordinator: self,
+													  fetcherService: context.citiesService)
 		let citiesListView = CitiesListViewController(viewModel: citiesListViewModel)
 		
 		push(citiesListView, animated: true, completion: nil)

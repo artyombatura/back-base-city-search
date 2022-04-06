@@ -18,3 +18,19 @@ struct City {
 		var lat: Double
 	}
 }
+
+// MARK: - Decodable protocol conformans
+//
+extension City: Decodable {
+	enum CodingKeys: String, CodingKey {
+		case name, country
+		case id = "_id"
+		case coordinates = "coord"
+	}
+}
+
+extension City.Coordinates: Decodable {
+	enum CodingKeys: String, CodingKey {
+		case lon, lat
+	}
+}

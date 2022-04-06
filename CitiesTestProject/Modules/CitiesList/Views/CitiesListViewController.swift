@@ -86,8 +86,11 @@ class CitiesListViewController: UIViewController {
 		case .empty:
 			self.loadingView.isHidden = true
 			self.emptyLabelView.isHidden = false
-		case .cities:
-			print("Display cities")
+		case let .cities(numOfCities):
+			self.loadingView.isHidden = true
+			self.emptyLabelView.isHidden = false
+			
+			self.emptyLabelView.text = "Fetched \(numOfCities) cities entities"
 		}
 	}
 	
