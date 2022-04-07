@@ -29,12 +29,15 @@ final class CitiesListViewModel: ObservableObject {
 	/// Shared with the view
 	@Published var state: DisplayState = .loading
 	
-	// MARK: - For inner purposes
-	@Published var citiesTrie = PrefixTrie<City>(elementStringMapper: { $0.name },
+	// MARK: - For in-entity purposes
+	
+	/// Representation of all entities in user-defined data structure
+	/// Used to perform fast searching with O(M) time complexity, where M is length of word inserted
+	@Published private var citiesTrie = PrefixTrie<City>(elementStringMapper: { $0.name },
 												 preCompareMapper: { $0.lowercased() })
 	/// Used to keep largest sorted entry after fetching all objects
 	/// Displaying this array when query is empty to prevent sorting 300k array every time when user cancels query
-	var initialySortedCities: [City] = []
+	private var initialySortedCities: [City] = []
 	
 	init(coordinator: ICitiesListCoordinator? = nil,
 		 fetcherService: ICitiesService? = nil) {
@@ -47,6 +50,7 @@ final class CitiesListViewModel: ObservableObject {
 	}
 	
 	// MARK: - Private
+	
 	private func bind() {
 		/// Combining to publishers with actual list of all cities and given query from user to compute filtered list
 		/// When filtering is proccessed the output will be of type DisplayState and will be shared with the view
@@ -55,6 +59,8 @@ final class CitiesListViewModel: ObservableObject {
 			.receive(on: queryProcessingQueue)
 			.dropFirst()
 			.map({ citiesTrie, query -> DisplayState in
+				self.state = .filtering
+				
 				/// Defining which and how should display actual state of screen
 				if query.isEmpty && !self.initialySortedCities.isEmpty {
 					return .result(self.initialySortedCities)
@@ -82,6 +88,8 @@ final class CitiesListViewModel: ObservableObject {
 				guard let self = self else {
 					return
 				}
+				
+				/// Creation of nodes for prefix trie which will be used for all cities displaying in next steps
 				let rootNode = PrefixTrie<City>.produceNodesChain(with: cities,
 																  elementStringMapper: self.citiesTrie.elementStringMapper,
 																  preCompareMapper: self.citiesTrie.preCompareMapper)
