@@ -30,7 +30,11 @@ final class CitiesListViewModel: ObservableObject {
 	@Published var state: DisplayState = .loading
 	
 	// MARK: - For inner purposes
-	@Published var cities: [City] = []
+	@Published var citiesTrie = PrefixTrie<City>(elementStringMapper: { $0.name },
+												 preCompareMapper: { $0.lowercased() })
+	/// Used to keep largest sorted entry after fetching all objects
+	/// Displaying this array when query is empty to prevent sorting 300k array every time when user cancels query
+	var initialySortedCities: [City] = []
 	
 	init(coordinator: ICitiesListCoordinator? = nil,
 		 fetcherService: ICitiesService? = nil) {
@@ -42,27 +46,26 @@ final class CitiesListViewModel: ObservableObject {
 		fetchCities()
 	}
 	
-	// MARK: - Methods
-	// MARK: - Public
-	
 	// MARK: - Private
 	private func bind() {
 		/// Combining to publishers with actual list of all cities and given query from user to compute filtered list
 		/// When filtering is proccessed the output will be of type DisplayState and will be shared with the view
-		$cities
+		$citiesTrie
 			.combineLatest($filterQuery)
 			.receive(on: queryProcessingQueue)
 			.dropFirst()
-		/// Mapping received cities and filter query to make new cities array
-			.map({ cities, query -> [City] in
-				return cities
-			})
-		/// Sorting feature
-			.map({ cities -> DisplayState in
-				if cities.isEmpty { return .empty }
-
-				let sortedCities = cities.sorted(by: { $0.name < $1.name })
-				return .result(sortedCities)
+			.map({ citiesTrie, query -> DisplayState in
+				/// Defining which and how should display actual state of screen
+				if query.isEmpty && !self.initialySortedCities.isEmpty {
+					return .result(self.initialySortedCities)
+				}
+				
+				let filtered = citiesTrie.search(query: query)
+				if filtered.isEmpty {
+					return .empty
+				} else {
+					return .result(filtered)
+				}
 			})
 			.assign(to: &$state)
 	}
@@ -70,8 +73,24 @@ final class CitiesListViewModel: ObservableObject {
 	private func fetchCities() {
 		fetcherService?
 			.fetchCities()
-			.receive(on: DispatchQueue.main)
-			.assign(to: &$cities)
+			.map({ cities -> [City] in
+				self.initialySortedCities = cities.sorted(by: { $0.name < $1.name })
+				return cities
+			})
+			.receive(on: DispatchQueue.global(qos: .background))
+			.sink(receiveValue: { [weak self] cities in
+				guard let self = self else {
+					return
+				}
+				let rootNode = PrefixTrie<City>.produceNodesChain(with: cities,
+																  elementStringMapper: self.citiesTrie.elementStringMapper,
+																  preCompareMapper: self.citiesTrie.preCompareMapper)
+				
+				self.citiesTrie = PrefixTrie<City>(root: rootNode,
+											 elementStringMapper: self.citiesTrie.elementStringMapper,
+											 preCompareMapper: self.citiesTrie.preCompareMapper)
+			})
+			.store(in: &cancellable)
 	}
 }
 
