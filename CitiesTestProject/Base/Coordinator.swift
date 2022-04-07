@@ -24,14 +24,17 @@ extension UIViewController: Presentable {
 }
 
 class Coordinator: NSObject {
+	let context: CoordinatorContext
 	private(set) weak var controller: UIViewController?
 
-	init(root controller: UIViewController) {
+	init(context: CoordinatorContext, root controller: UIViewController) {
 		self.controller = controller
+		self.context = context
 	}
 
 	init(coordinator: Coordinator) {
 		controller = coordinator.controller
+		context = coordinator.context
 	}
 
 	deinit {
@@ -53,9 +56,9 @@ class Coordinator: NSObject {
 class NavigationCoordinator: Coordinator {
 	let rootController: UINavigationController
 
-	init(root controller: UINavigationController) {
+	init(context: CoordinatorContext, root controller: UINavigationController) {
 		rootController = controller
-		super.init(root: controller)
+		super.init(context: context, root: controller)
 	}
 
 	init(coordinator: NavigationCoordinator) {
@@ -83,14 +86,15 @@ class AppCoordinator: NavigationCoordinator {
 	
 	let baseNavigationController = UINavigationController()
 	
-	init(window: UIWindow?) {
+	init(context: CoordinatorContext, window: UIWindow?) {
 		self.window = window
-		super.init(root: baseNavigationController)
+		super.init(context: context, root: baseNavigationController)
+
 	}
 	
 	// MARK: - Overrides
 	override func start(animated _: Bool) {
-		let citiesFlow = CitiesListCoordinator(root: baseNavigationController)
+		let citiesFlow = CitiesListCoordinator(coordinator: self)
 		citiesFlow.start(animated: true)
 		
 		window?.rootViewController = baseNavigationController

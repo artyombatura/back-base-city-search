@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 protocol ICitiesListCoordinator {
-	func startDetailsFlow()
+	func startDetailsFlow(with city: City)
 }
 
 class CitiesListCoordinator: NavigationCoordinator, Presentable, ICitiesListCoordinator {
@@ -18,11 +18,16 @@ class CitiesListCoordinator: NavigationCoordinator, Presentable, ICitiesListCoor
 	}
 	
 	override func start(animated _: Bool) {
-		let baseController = CitiesListViewController(coordinator: self)
-		push(baseController, animated: true, completion: nil)
+		let citiesListViewModel = CitiesListViewModel(coordinator: self,
+													  fetcherService: context.citiesService)
+		let citiesListView = CitiesListView(viewModel: citiesListViewModel)
+		
+		push(citiesListView, animated: true, completion: nil)
 	}
 	
-	func startDetailsFlow() {
-		push(UIViewController(), animated: true, completion: nil)
+	func startDetailsFlow(with city: City) {
+		let cityDetailViewModel = CityDetailViewModel(city: city, coordinator: self)
+		let cityDetailView = CityDetailView(viewModel: cityDetailViewModel)
+		push(cityDetailView, animated: true, completion: nil)
 	}
 }
