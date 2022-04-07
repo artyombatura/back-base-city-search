@@ -44,6 +44,12 @@ class CitiesListView: UIViewController {
 		return table
 	}()
 	
+	private lazy var searchBar: UISearchBar = {
+		let bar = UISearchBar()
+		bar.sizeToFit()
+		return bar
+	}()
+	
 	private var cancellable = Set<AnyCancellable>()
 	
 	init(viewModel: CitiesListViewModel) {
@@ -71,6 +77,8 @@ class CitiesListView: UIViewController {
 		self.view.addSubview(emptyLabelView)
 		self.view.addSubview(tableView)
 		
+		self.tableView.tableHeaderView = searchBar
+		
 		makeConstraints()
 	}
 	
@@ -92,7 +100,14 @@ class CitiesListView: UIViewController {
 	}
 	
 	private func bind() {
+		/// Binding view's output
+		searchBar.searchTextField.textPublisher
+			.assign(to: \.filterQuery, on: viewModel)
+			.store(in: &cancellable)
+		
+		/// Receiving input to update
 		viewModel.$state
+			.receive(on: DispatchQueue.main)
 			.sink { [weak self] newState in
 				self?.handleNewState(newState)
 			}

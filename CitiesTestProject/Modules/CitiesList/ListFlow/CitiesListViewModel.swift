@@ -16,6 +16,8 @@ final class CitiesListViewModel: ObservableObject {
 	
 	private var cancellable = Set<AnyCancellable>()
 	
+	private let queryProcessingQueue = DispatchQueue(label: "com.backbase.filtering_queue", qos: .userInteractive, attributes: .concurrent)
+	
 	// MARK: - Input
 	
 	/// User input for filtering, combined with cities publisher to result filtered cities
@@ -49,7 +51,8 @@ final class CitiesListViewModel: ObservableObject {
 		/// When filtering is proccessed the output will be of type DisplayState and will be shared with the view
 		$cities
 			.combineLatest($filterQuery)
-			.subscribe(on: DispatchQueue.global())
+			.receive(on: queryProcessingQueue)
+			.dropFirst()
 		/// Mapping received cities and filter query to make new cities array
 			.map({ cities, query -> [City] in
 				return cities
@@ -57,11 +60,10 @@ final class CitiesListViewModel: ObservableObject {
 		/// Sorting feature
 			.map({ cities -> DisplayState in
 				if cities.isEmpty { return .empty }
-				
+
 				let sortedCities = cities.sorted(by: { $0.name < $1.name })
 				return .result(sortedCities)
 			})
-			.receive(on: DispatchQueue.main)
 			.assign(to: &$state)
 	}
 	

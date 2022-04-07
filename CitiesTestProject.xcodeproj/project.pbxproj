@@ -27,6 +27,7 @@
 		0FC2004D27FDBA2D00076BA5 /* CitiesTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC2004C27FDBA2D00076BA5 /* CitiesTableViewDelegate.swift */; };
 		0FC2004F27FDBA4A00076BA5 /* CititesTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC2004E27FDBA4A00076BA5 /* CititesTableViewDataSource.swift */; };
 		0FC2005527FDD20E00076BA5 /* CityDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC2005427FDD20E00076BA5 /* CityDetailView.swift */; };
+		0FC2005727FEC7E400076BA5 /* UITextField+Publisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC2005627FEC7E400076BA5 /* UITextField+Publisher.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		0FC2004C27FDBA2D00076BA5 /* CitiesTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesTableViewDelegate.swift; sourceTree = "<group>"; };
 		0FC2004E27FDBA4A00076BA5 /* CititesTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CititesTableViewDataSource.swift; sourceTree = "<group>"; };
 		0FC2005427FDD20E00076BA5 /* CityDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityDetailView.swift; sourceTree = "<group>"; };
+		0FC2005627FEC7E400076BA5 /* UITextField+Publisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Publisher.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +176,7 @@
 			children = (
 				0FC2004627FDB04500076BA5 /* Bundle+Extension.swift */,
 				0FC2004A27FDB54700076BA5 /* UITableView+Extension.swift */,
+				0FC2005627FEC7E400076BA5 /* UITextField+Publisher.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -280,6 +283,7 @@
 				0FC2004D27FDBA2D00076BA5 /* CitiesTableViewDelegate.swift in Sources */,
 				0FC2004727FDB04500076BA5 /* Bundle+Extension.swift in Sources */,
 				0FC2004B27FDB54700076BA5 /* UITableView+Extension.swift in Sources */,
+				0FC2005727FEC7E400076BA5 /* UITextField+Publisher.swift in Sources */,
 				0FC2002F27FD79AB00076BA5 /* CitiesListView.swift in Sources */,
 				0FC2004F27FDBA4A00076BA5 /* CititesTableViewDataSource.swift in Sources */,
 				0FC2003327FD7FC600076BA5 /* CitiesListViewModel.swift in Sources */,
@@ -433,7 +437,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -462,7 +466,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
