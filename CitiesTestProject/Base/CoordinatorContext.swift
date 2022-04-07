@@ -8,6 +8,10 @@
 import Foundation
 
 class CoordinatorContext {
+	enum Global {
+		static let defMapRegionRadius: Double = 1500
+	}
+	
 	let citiesService: ICitiesService
 	
 	init(citiesService: ICitiesService = CitiesService()) {

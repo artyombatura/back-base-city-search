@@ -30,6 +30,8 @@
 		0FC2005727FEC7E400076BA5 /* UITextField+Publisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC2005627FEC7E400076BA5 /* UITextField+Publisher.swift */; };
 		0FC2005B27FED25B00076BA5 /* PrefixTrie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC2005A27FED25B00076BA5 /* PrefixTrie.swift */; };
 		0FC2005E27FED2A900076BA5 /* PrefixTrieNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC2005D27FED2A900076BA5 /* PrefixTrieNode.swift */; };
+		0FC2006027FEF9A800076BA5 /* CityDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC2005F27FEF9A800076BA5 /* CityDetailViewModel.swift */; };
+		0FC2006227FEF9C200076BA5 /* MKMapView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC2006127FEF9C200076BA5 /* MKMapView+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +60,8 @@
 		0FC2005627FEC7E400076BA5 /* UITextField+Publisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Publisher.swift"; sourceTree = "<group>"; };
 		0FC2005A27FED25B00076BA5 /* PrefixTrie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrefixTrie.swift; sourceTree = "<group>"; };
 		0FC2005D27FED2A900076BA5 /* PrefixTrieNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrefixTrieNode.swift; sourceTree = "<group>"; };
+		0FC2005F27FEF9A800076BA5 /* CityDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityDetailViewModel.swift; sourceTree = "<group>"; };
+		0FC2006127FEF9C200076BA5 /* MKMapView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKMapView+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +186,7 @@
 				0FC2004627FDB04500076BA5 /* Bundle+Extension.swift */,
 				0FC2004A27FDB54700076BA5 /* UITableView+Extension.swift */,
 				0FC2005627FEC7E400076BA5 /* UITextField+Publisher.swift */,
+				0FC2006127FEF9C200076BA5 /* MKMapView+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -201,6 +206,7 @@
 			isa = PBXGroup;
 			children = (
 				0FC2005427FDD20E00076BA5 /* CityDetailView.swift */,
+				0FC2005F27FEF9A800076BA5 /* CityDetailViewModel.swift */,
 			);
 			path = DetailFlow;
 			sourceTree = "<group>";
@@ -319,6 +325,8 @@
 				0FC2002F27FD79AB00076BA5 /* CitiesListView.swift in Sources */,
 				0FC2004F27FDBA4A00076BA5 /* CititesTableViewDataSource.swift in Sources */,
 				0FC2003327FD7FC600076BA5 /* CitiesListViewModel.swift in Sources */,
+				0FC2006027FEF9A800076BA5 /* CityDetailViewModel.swift in Sources */,
+				0FC2006227FEF9C200076BA5 /* MKMapView+Extension.swift in Sources */,
 				0FC2003827FD9FB700076BA5 /* City.swift in Sources */,
 				0FC2004027FDA5AA00076BA5 /* DataFetcher.swift in Sources */,
 			);

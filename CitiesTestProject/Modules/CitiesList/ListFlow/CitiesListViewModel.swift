@@ -33,6 +33,9 @@ final class CitiesListViewModel: ObservableObject {
 	
 	/// Representation of all entities in user-defined data structure
 	/// Used to perform fast searching with O(M) time complexity, where M is length of word inserted
+	///
+	///	Element string mapper tells trie to use city's name field as key to build node's hierarchy, because prefix trie is built on char values
+	/// Passing precompare mapper to let prefix trie search in case insensitive manner
 	@Published private var citiesTrie = PrefixTrie<City>(elementStringMapper: { $0.name },
 												 preCompareMapper: { $0.lowercased() })
 	/// Used to keep largest sorted entry after fetching all objects
@@ -66,7 +69,8 @@ final class CitiesListViewModel: ObservableObject {
 					return .result(self.initialySortedCities)
 				}
 				
-				let filtered = citiesTrie.search(query: query)
+				var filtered = citiesTrie.search(query: query)
+				filtered.sort(by: { $0.name < $1.name })
 				if filtered.isEmpty {
 					return .empty
 				} else {
