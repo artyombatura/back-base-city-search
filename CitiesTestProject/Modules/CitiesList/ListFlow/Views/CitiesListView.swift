@@ -15,6 +15,10 @@ protocol CitiesListTableDelegate: AnyObject {
 
 /// Represents view
 class CitiesListView: UIViewController {
+	enum Constants {
+		static let screenTitle: String = "Cities"
+	}
+	
 	let viewModel: CitiesListViewModel
 	
 	let tableDelegate = CitiesTableViewDelegate()
@@ -27,10 +31,14 @@ class CitiesListView: UIViewController {
 		return v
 	}()
 	
+	private lazy var navBarLoadingView: UIActivityIndicatorView = UIActivityIndicatorView()
+	
 	private lazy var emptyLabelView: UILabel = {
 		let label = UILabel(frame: .zero)
 		label.textAlignment = .center
-		label.text = "Nothing found. Try another filter query."
+		label.numberOfLines = 0
+		label.text = "Nothing found.\nTry another filter query."
+		label.textColor = .gray
 		label.isHidden = true
 		label.translatesAutoresizingMaskIntoConstraints = false
 		return label
@@ -46,7 +54,9 @@ class CitiesListView: UIViewController {
 	
 	private lazy var searchBar: UISearchBar = {
 		let bar = UISearchBar()
-		bar.sizeToFit()
+		bar.isHidden = true
+		bar.translatesAutoresizingMaskIntoConstraints = false
+		bar.placeholder = "Start inputing city name"
 		return bar
 	}()
 	
@@ -70,29 +80,36 @@ class CitiesListView: UIViewController {
 	}
 	
 	private func setupView() {
-		self.title = "Cities"
+		self.title = Constants.screenTitle
 		self.view.backgroundColor = .white
 		
 		self.view.addSubview(loadingView)
 		self.view.addSubview(emptyLabelView)
+		self.view.addSubview(searchBar)
 		self.view.addSubview(tableView)
 		
-		self.tableView.tableHeaderView = searchBar
+		let barActivityIndicator = UIBarButtonItem(customView: navBarLoadingView)
+		navigationItem.rightBarButtonItem = barActivityIndicator
 		
 		makeConstraints()
 	}
 	
 	private func makeConstraints() {
 		NSLayoutConstraint.activate([
+			searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+			searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+			searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+			searchBar.heightAnchor.constraint(equalToConstant: 44),
+			
 			loadingView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
 			loadingView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
 			
-			emptyLabelView.topAnchor.constraint(equalTo: view.topAnchor),
+			emptyLabelView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
 			emptyLabelView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
 			emptyLabelView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
 			emptyLabelView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-			
-			tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+
+			tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
 			tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
 			tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 			tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
@@ -119,11 +136,16 @@ class CitiesListView: UIViewController {
 		case .loading:
 			self.show(loadingView)
 			
+		case .filtering:
+			self.navBarLoadingView.startAnimating()
+			
 		case .empty:
-			self.show(emptyLabelView)
+			self.show(emptyLabelView, ignore: searchBar)
+			self.navBarLoadingView.stopAnimating()
 			
 		case let .result(cities):
-			self.show(tableView)
+			self.show(tableView, ignore: searchBar)
+			self.navBarLoadingView.stopAnimating()
 			
 			self.tableDelegate.source = cities
 			self.tableDataSource.source = cities
@@ -131,10 +153,13 @@ class CitiesListView: UIViewController {
 		}
 	}
 	
-	private func show(_ view: UIView) {
+	private func show(_ view: UIView, ignore views: UIView...) {
 		self.view.subviews.forEach {
 			$0.isHidden = (view != $0)
 		}
+		
+		views.forEach { ignoredView in
+			ignoredView.isHidden = false
+		}
 	}
 }
-

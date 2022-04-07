@@ -11,6 +11,7 @@ enum Cities {
 	
 	enum State {
 		case loading
+		case filtering
 		case empty
 		/// Temporary set to array of strings -> refactor to actual models
 		case result([City])
