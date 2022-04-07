@@ -14,8 +14,11 @@ protocol CitiesListTableDelegate: AnyObject {
 }
 
 /// Represents view
-class CitiesListViewController: UIViewController {
+class CitiesListView: UIViewController {
 	let viewModel: CitiesListViewModel
+	
+	let tableDelegate = CitiesTableViewDelegate()
+	let tableDataSource = CititesTableViewDataSource()
 	
 	private lazy var loadingView: UIActivityIndicatorView = {
 		let v = UIActivityIndicatorView(style: .medium)
@@ -34,8 +37,8 @@ class CitiesListViewController: UIViewController {
 	}()
 	
 	private lazy var tableView: UITableView = {
-		let table = UITableView(delegate: viewModel.tableDelegate,
-						   dataSource: viewModel.tableDataSource)
+		let table = UITableView(delegate: tableDelegate,
+						   dataSource: tableDataSource)
 		table.translatesAutoresizingMaskIntoConstraints = false
 		table.isHidden = true
 		return table
@@ -54,6 +57,7 @@ class CitiesListViewController: UIViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		tableDelegate.delegate = viewModel
 		
 		setupView()
 		bind()
@@ -103,8 +107,11 @@ class CitiesListViewController: UIViewController {
 		case .empty:
 			self.show(emptyLabelView)
 			
-		case .result:
+		case let .result(cities):
 			self.show(tableView)
+			
+			self.tableDelegate.source = cities
+			self.tableDataSource.source = cities
 			tableView.reloadData()
 		}
 	}

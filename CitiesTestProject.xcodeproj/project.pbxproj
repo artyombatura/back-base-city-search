@@ -13,7 +13,7 @@
 		0FC2002027FD683C00076BA5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0FC2001E27FD683C00076BA5 /* LaunchScreen.storyboard */; };
 		0FC2002927FD744D00076BA5 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC2002827FD744D00076BA5 /* Coordinator.swift */; };
 		0FC2002D27FD76E300076BA5 /* CitiesListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC2002C27FD76E300076BA5 /* CitiesListCoordinator.swift */; };
-		0FC2002F27FD79AB00076BA5 /* CitiesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC2002E27FD79AB00076BA5 /* CitiesListViewController.swift */; };
+		0FC2002F27FD79AB00076BA5 /* CitiesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC2002E27FD79AB00076BA5 /* CitiesListView.swift */; };
 		0FC2003327FD7FC600076BA5 /* CitiesListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC2003227FD7FC600076BA5 /* CitiesListViewModel.swift */; };
 		0FC2003827FD9FB700076BA5 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC2003727FD9FB700076BA5 /* City.swift */; };
 		0FC2003A27FD9FCB00076BA5 /* DataFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC2003927FD9FCB00076BA5 /* DataFlow.swift */; };
@@ -26,6 +26,7 @@
 		0FC2004B27FDB54700076BA5 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC2004A27FDB54700076BA5 /* UITableView+Extension.swift */; };
 		0FC2004D27FDBA2D00076BA5 /* CitiesTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC2004C27FDBA2D00076BA5 /* CitiesTableViewDelegate.swift */; };
 		0FC2004F27FDBA4A00076BA5 /* CititesTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC2004E27FDBA4A00076BA5 /* CititesTableViewDataSource.swift */; };
+		0FC2005527FDD20E00076BA5 /* CityDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC2005427FDD20E00076BA5 /* CityDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,7 +38,7 @@
 		0FC2002127FD683C00076BA5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0FC2002827FD744D00076BA5 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		0FC2002C27FD76E300076BA5 /* CitiesListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesListCoordinator.swift; sourceTree = "<group>"; };
-		0FC2002E27FD79AB00076BA5 /* CitiesListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesListViewController.swift; sourceTree = "<group>"; };
+		0FC2002E27FD79AB00076BA5 /* CitiesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesListView.swift; sourceTree = "<group>"; };
 		0FC2003227FD7FC600076BA5 /* CitiesListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesListViewModel.swift; sourceTree = "<group>"; };
 		0FC2003727FD9FB700076BA5 /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
 		0FC2003927FD9FCB00076BA5 /* DataFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFlow.swift; sourceTree = "<group>"; };
@@ -50,6 +51,7 @@
 		0FC2004A27FDB54700076BA5 /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		0FC2004C27FDBA2D00076BA5 /* CitiesTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesTableViewDelegate.swift; sourceTree = "<group>"; };
 		0FC2004E27FDBA4A00076BA5 /* CititesTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CititesTableViewDataSource.swift; sourceTree = "<group>"; };
+		0FC2005427FDD20E00076BA5 /* CityDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,12 +117,10 @@
 			isa = PBXGroup;
 			children = (
 				0FC2002C27FD76E300076BA5 /* CitiesListCoordinator.swift */,
-				0FC2003227FD7FC600076BA5 /* CitiesListViewModel.swift */,
-				0FC2004C27FDBA2D00076BA5 /* CitiesTableViewDelegate.swift */,
-				0FC2004E27FDBA4A00076BA5 /* CititesTableViewDataSource.swift */,
+				0FC2005327FDD1CD00076BA5 /* DetailFlow */,
+				0FC2005227FDD1C700076BA5 /* ListFlow */,
 				0FC2003B27FDA09D00076BA5 /* Provider */,
 				0FC2003627FD9FAB00076BA5 /* Model */,
-				0FC2003527FD8C1600076BA5 /* Views */,
 			);
 			path = CitiesList;
 			sourceTree = "<group>";
@@ -138,7 +138,7 @@
 		0FC2003527FD8C1600076BA5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				0FC2002E27FD79AB00076BA5 /* CitiesListViewController.swift */,
+				0FC2002E27FD79AB00076BA5 /* CitiesListView.swift */,
 				0FC2004827FDB24500076BA5 /* CityCell.swift */,
 			);
 			path = Views;
@@ -176,6 +176,25 @@
 				0FC2004A27FDB54700076BA5 /* UITableView+Extension.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		0FC2005227FDD1C700076BA5 /* ListFlow */ = {
+			isa = PBXGroup;
+			children = (
+				0FC2003227FD7FC600076BA5 /* CitiesListViewModel.swift */,
+				0FC2004C27FDBA2D00076BA5 /* CitiesTableViewDelegate.swift */,
+				0FC2004E27FDBA4A00076BA5 /* CititesTableViewDataSource.swift */,
+				0FC2003527FD8C1600076BA5 /* Views */,
+			);
+			path = ListFlow;
+			sourceTree = "<group>";
+		};
+		0FC2005327FDD1CD00076BA5 /* DetailFlow */ = {
+			isa = PBXGroup;
+			children = (
+				0FC2005427FDD20E00076BA5 /* CityDetailView.swift */,
+			);
+			path = DetailFlow;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,10 +276,11 @@
 				0FC2003A27FD9FCB00076BA5 /* DataFlow.swift in Sources */,
 				0FC2001627FD683900076BA5 /* SceneDelegate.swift in Sources */,
 				0FC2003D27FDA0A900076BA5 /* CitiesService.swift in Sources */,
+				0FC2005527FDD20E00076BA5 /* CityDetailView.swift in Sources */,
 				0FC2004D27FDBA2D00076BA5 /* CitiesTableViewDelegate.swift in Sources */,
 				0FC2004727FDB04500076BA5 /* Bundle+Extension.swift in Sources */,
 				0FC2004B27FDB54700076BA5 /* UITableView+Extension.swift in Sources */,
-				0FC2002F27FD79AB00076BA5 /* CitiesListViewController.swift in Sources */,
+				0FC2002F27FD79AB00076BA5 /* CitiesListView.swift in Sources */,
 				0FC2004F27FDBA4A00076BA5 /* CititesTableViewDataSource.swift in Sources */,
 				0FC2003327FD7FC600076BA5 /* CitiesListViewModel.swift in Sources */,
 				0FC2003827FD9FB700076BA5 /* City.swift in Sources */,

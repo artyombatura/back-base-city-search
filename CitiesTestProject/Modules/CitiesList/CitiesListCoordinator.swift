@@ -20,12 +20,14 @@ class CitiesListCoordinator: NavigationCoordinator, Presentable, ICitiesListCoor
 	override func start(animated _: Bool) {
 		let citiesListViewModel = CitiesListViewModel(coordinator: self,
 													  fetcherService: context.citiesService)
-		let citiesListView = CitiesListViewController(viewModel: citiesListViewModel)
+		let citiesListView = CitiesListView(viewModel: citiesListViewModel)
 		
 		push(citiesListView, animated: true, completion: nil)
 	}
 	
 	func startDetailsFlow(with city: City) {
-		print("Start details flow for: \(city.name), \(city.country)")
+		let cityDetailViewModel = CityDetailViewModel(city: city, coordinator: self)
+		let cityDetailView = CityDetailView(viewModel: cityDetailViewModel)
+		push(cityDetailView, animated: true, completion: nil)
 	}
 }
