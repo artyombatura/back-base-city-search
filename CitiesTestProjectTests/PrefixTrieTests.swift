@@ -31,6 +31,15 @@ class PrefixTrieTests: XCTestCase {
 		
 		XCTAssertEqual(result.count, 4)
 	}
+	
+	/// Check case with composite query
+	/// Because it forces trie to go down through multiple nodes in hierarchy
+	func testSuccessSearchThroughMultipleNodes() {
+		let searchQuery = "Al"
+		let result = sut.search(query: searchQuery)
+		
+		XCTAssertEqual(result.count, 2)
+	}
 
 	func testCaseInsensitiveSearch() {
 		let searchQuery = "a"
