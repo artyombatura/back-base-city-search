@@ -19,7 +19,7 @@ class CityDetailViewModel: ObservableObject {
 	@Published var city: City
 	
 	// Output
-	@Published var selectedLocation: CLLocation = Constants.defaultLocation
+	@Published var cityAnnotation: CityAnnotation?
 	
 	init(city: City, coordinator: ICitiesListCoordinator?) {
 		self.city = city
@@ -30,10 +30,10 @@ class CityDetailViewModel: ObservableObject {
 	
 	private func bind() {
 		$city
-			.map { city -> CLLocation in
-				return CLLocation(latitude: city.coordinates.lat,
-								  longitude: city.coordinates.lon)
-			}
-			.assign(to: &$selectedLocation)
+			.map({ city -> CityAnnotation in
+				return CityAnnotation(city: city)
+			})
+			.assign(to: &$cityAnnotation)
 	}
 }
+

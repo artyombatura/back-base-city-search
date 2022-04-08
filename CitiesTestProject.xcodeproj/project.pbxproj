@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0FA160692800108400DA1403 /* CityAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA160682800108400DA1403 /* CityAnnotation.swift */; };
 		0FC2001427FD683900076BA5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC2001327FD683900076BA5 /* AppDelegate.swift */; };
 		0FC2001627FD683900076BA5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC2001527FD683900076BA5 /* SceneDelegate.swift */; };
 		0FC2001D27FD683C00076BA5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0FC2001C27FD683C00076BA5 /* Assets.xcassets */; };
@@ -49,6 +50,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0FA160682800108400DA1403 /* CityAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityAnnotation.swift; sourceTree = "<group>"; };
 		0FC2001027FD683900076BA5 /* CitiesTestProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CitiesTestProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FC2001327FD683900076BA5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0FC2001527FD683900076BA5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -101,6 +103,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0FA160672800107500DA1403 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0FA160682800108400DA1403 /* CityAnnotation.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		0FC2000727FD683900076BA5 = {
 			isa = PBXGroup;
 			children = (
@@ -236,6 +246,7 @@
 			children = (
 				0FC2005427FDD20E00076BA5 /* CityDetailView.swift */,
 				0FC2005F27FEF9A800076BA5 /* CityDetailViewModel.swift */,
+				0FA160672800107500DA1403 /* Model */,
 			);
 			path = DetailFlow;
 			sourceTree = "<group>";
@@ -396,6 +407,7 @@
 				0FC2003D27FDA0A900076BA5 /* CitiesService.swift in Sources */,
 				0FC2007227FF086000076BA5 /* StubbedCity.swift in Sources */,
 				0FC2005527FDD20E00076BA5 /* CityDetailView.swift in Sources */,
+				0FA160692800108400DA1403 /* CityAnnotation.swift in Sources */,
 				0FC2004D27FDBA2D00076BA5 /* CitiesTableViewDelegate.swift in Sources */,
 				0FC2004727FDB04500076BA5 /* Bundle+Extension.swift in Sources */,
 				0FC2004B27FDB54700076BA5 /* UITableView+Extension.swift in Sources */,
