@@ -54,9 +54,14 @@ class CityDetailView: UIViewController {
 	}
 	
 	private func bind() {
-		viewModel.$selectedLocation
-			.sink { [weak self] mappedLocation in
-				self?.mapView.centerToLocation(mappedLocation)
+		viewModel.$cityAnnotation
+			.sink { [weak self] annotation in
+				guard let annotation = annotation else {
+					return
+				}
+				let location = CLLocation(latitude: annotation.coordinate.latitude, longitude: annotation.coordinate.longitude)
+				self?.mapView.centerToLocation(location)
+				self?.mapView.addAnnotation(annotation)
 			}
 			.store(in: &cancellable)
 	}
