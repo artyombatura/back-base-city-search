@@ -70,7 +70,10 @@ final class CitiesListViewModel: ObservableObject {
 				}
 				
 				var filtered = citiesTrie.search(query: query)
-				filtered.sort(by: { $0.name < $1.name })
+				filtered.sort(by: {
+					if $0.name == $1.name { return $0.country < $1.country }
+					return $0.name < $1.name
+				})
 				if filtered.isEmpty {
 					return .empty
 				} else {

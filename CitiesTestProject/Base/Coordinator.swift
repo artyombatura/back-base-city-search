@@ -89,7 +89,6 @@ class AppCoordinator: NavigationCoordinator {
 	init(context: CoordinatorContext, window: UIWindow?) {
 		self.window = window
 		super.init(context: context, root: baseNavigationController)
-
 	}
 	
 	// MARK: - Overrides
