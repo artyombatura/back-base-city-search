@@ -17,12 +17,15 @@ protocol CitiesListTableDelegate: AnyObject {
 class CitiesListView: UIViewController {
 	enum Constants {
 		static let screenTitle: String = "Cities"
+		static let emptyTitle: String = "Nothing found.\nTry another filter query."
+		static let searchPlaceholder: String = "Start inputing city name"
 	}
 	
-	let viewModel: CitiesListViewModel
+	private let viewModel: CitiesListViewModel
 	
-	let tableDelegate = CitiesTableViewDelegate()
-	let tableDataSource = CititesTableViewDataSource()
+	private let tableDelegate = CitiesTableViewDelegate()
+	private let tableDataSource = CititesTableViewDataSource()
+	private let textFieldDelegate = BaseTextFieldDelegate()
 	
 	private lazy var loadingView: UIActivityIndicatorView = {
 		let v = UIActivityIndicatorView(style: .medium)
@@ -37,7 +40,7 @@ class CitiesListView: UIViewController {
 		let label = UILabel(frame: .zero)
 		label.textAlignment = .center
 		label.numberOfLines = 0
-		label.text = "Nothing found.\nTry another filter query."
+		label.text = Constants.emptyTitle
 		label.textColor = .gray
 		label.isHidden = true
 		label.translatesAutoresizingMaskIntoConstraints = false
@@ -49,6 +52,7 @@ class CitiesListView: UIViewController {
 						   dataSource: tableDataSource)
 		table.translatesAutoresizingMaskIntoConstraints = false
 		table.isHidden = true
+		table.keyboardDismissMode = .interactive
 		return table
 	}()
 	
@@ -56,7 +60,8 @@ class CitiesListView: UIViewController {
 		let bar = UISearchBar()
 		bar.isHidden = true
 		bar.translatesAutoresizingMaskIntoConstraints = false
-		bar.placeholder = "Start inputing city name"
+		bar.placeholder = Constants.searchPlaceholder
+		bar.searchTextField.delegate = textFieldDelegate
 		return bar
 	}()
 	
@@ -127,6 +132,28 @@ class CitiesListView: UIViewController {
 			.receive(on: DispatchQueue.main)
 			.sink { [weak self] newState in
 				self?.handleNewState(newState)
+			}
+			.store(in: &cancellable)
+		
+		KeyboardPublisher.keyboardWillShow
+			.sink { [weak self] expectedKeyboardHeight in
+				guard let self = self else {
+					return
+				}
+				let insets = UIEdgeInsets(top: 0, left: 0, bottom: expectedKeyboardHeight, right: 0)
+				self.tableView.contentInset = insets
+				self.tableView.scrollIndicatorInsets = insets
+			}
+			.store(in: &cancellable)
+		
+		KeyboardPublisher.keyboardWillHide
+			.sink { [weak self] in
+				guard let self = self else {
+					return
+				}
+				let insets: UIEdgeInsets = .zero
+				self.tableView.contentInset = insets
+				self.tableView.scrollIndicatorInsets = insets
 			}
 			.store(in: &cancellable)
 	}

@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0FA160692800108400DA1403 /* CityAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA160682800108400DA1403 /* CityAnnotation.swift */; };
+		0FA1606B2800496200DA1403 /* Keyboard+Publisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA1606A2800496200DA1403 /* Keyboard+Publisher.swift */; };
+		0FA1606D28004C1700DA1403 /* BaseTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA1606C28004C1700DA1403 /* BaseTextFieldDelegate.swift */; };
 		0FC2001427FD683900076BA5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC2001327FD683900076BA5 /* AppDelegate.swift */; };
 		0FC2001627FD683900076BA5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC2001527FD683900076BA5 /* SceneDelegate.swift */; };
 		0FC2001D27FD683C00076BA5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0FC2001C27FD683C00076BA5 /* Assets.xcassets */; };
@@ -51,6 +53,8 @@
 
 /* Begin PBXFileReference section */
 		0FA160682800108400DA1403 /* CityAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityAnnotation.swift; sourceTree = "<group>"; };
+		0FA1606A2800496200DA1403 /* Keyboard+Publisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Keyboard+Publisher.swift"; sourceTree = "<group>"; };
+		0FA1606C28004C1700DA1403 /* BaseTextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTextFieldDelegate.swift; sourceTree = "<group>"; };
 		0FC2001027FD683900076BA5 /* CitiesTestProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CitiesTestProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FC2001327FD683900076BA5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0FC2001527FD683900076BA5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -150,6 +154,7 @@
 				0FC2001527FD683900076BA5 /* SceneDelegate.swift */,
 				0FC2002827FD744D00076BA5 /* Coordinator.swift */,
 				0FC2004127FDA74700076BA5 /* CoordinatorContext.swift */,
+				0FA1606C28004C1700DA1403 /* BaseTextFieldDelegate.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -255,6 +260,7 @@
 			isa = PBXGroup;
 			children = (
 				0FC2005927FED24A00076BA5 /* DataStructures */,
+				0FA1606A2800496200DA1403 /* Keyboard+Publisher.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -396,8 +402,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				0FC2002927FD744D00076BA5 /* Coordinator.swift in Sources */,
+				0FA1606D28004C1700DA1403 /* BaseTextFieldDelegate.swift in Sources */,
 				0FC2005B27FED25B00076BA5 /* PrefixTrie.swift in Sources */,
 				0FC2001427FD683900076BA5 /* AppDelegate.swift in Sources */,
+				0FA1606B2800496200DA1403 /* Keyboard+Publisher.swift in Sources */,
 				0FC2005E27FED2A900076BA5 /* PrefixTrieNode.swift in Sources */,
 				0FC2002D27FD76E300076BA5 /* CitiesListCoordinator.swift in Sources */,
 				0FC2004927FDB24500076BA5 /* CityCell.swift in Sources */,
