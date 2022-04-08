@@ -64,5 +64,10 @@ class CityDetailView: UIViewController {
 				self?.mapView.addAnnotation(annotation)
 			}
 			.store(in: &cancellable)
+		
+		viewModel.$city
+			.map({ "\($0.name), \($0.country)" })
+			.assign(to: \.title, on: self)
+			.store(in: &cancellable)
 	}
 }
