@@ -8,14 +8,14 @@
 import Foundation
 
 struct City {
-	var id: Int
-	var name: String
-	var country: String
-	var coordinates: Coordinates
+	let id: Int
+	let name: String
+	let country: String
+	let coordinates: Coordinates
 	
 	struct Coordinates {
-		var lon: Double
-		var lat: Double
+		let lon: Double
+		let lat: Double
 	}
 }
 
